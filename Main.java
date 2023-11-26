@@ -1,12 +1,14 @@
 import java.io.IOException;
 import java.util.Scanner;
 
+import Board.Board;
 import Board.DisplayBoard;
 
 public class Main {
     public static void main(String... arg) throws IOException, InterruptedException {
 
-        DisplayBoard playBoard = new DisplayBoard();
+        DisplayBoard displayBoard = new DisplayBoard();
+        Board playBoard = new Board();
 
         Scanner input = new Scanner(System.in);
 
@@ -19,7 +21,7 @@ public class Main {
             //Comando para limpar a tela
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor(); 
 
-            playBoard.printBoard();
+            displayBoard.printBoard();
 
             System.out.print("Digite o seu comando: ");
 
@@ -31,11 +33,11 @@ public class Main {
                     break;
                 
                 case "su":
-                    playBoard.setScaleFactor(false);
+                    displayBoard.setScaleFactor(false);
                     break;
 
                 case "sd":
-                    playBoard.setScaleFactor(true);
+                    displayBoard.setScaleFactor(true);
                     break;
             
                 default:

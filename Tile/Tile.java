@@ -8,13 +8,13 @@ public class Tile {
     public boolean isAttackedBlack;
     public Piece currentPiece;
     // List<Piece> possibleMove;
-    ArrayList<Piece> possibleMoves;
+    public ArrayList<Piece> possibleMoves;
 
     public Tile() {
         isAttackedBlack = false;
         isAttackedWhite = false;
         currentPiece = null;
         possibleMoves = new ArrayList<Piece>();
-            
     }
+    
 }

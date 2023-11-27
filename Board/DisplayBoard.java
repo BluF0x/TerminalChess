@@ -1,5 +1,8 @@
 package Board;
 
+import Piece.Piece;
+import Tile.Tile;
+
 public class DisplayBoard {
    
     private String[][] display_board;
@@ -23,7 +26,7 @@ public class DisplayBoard {
 
     public DisplayBoard(){
         base_board = new Board();
-        scale_factor = 3;
+        scale_factor = 1;
         display_board = new String[8 * scale_factor][8 * scale_factor];
     }
 
@@ -36,44 +39,41 @@ public class DisplayBoard {
 
     public void setScaleFactor(boolean isDecrease) {
         if (isDecrease) {
-            int bufferScale = (scale_factor < 1) ? 1 : scale_factor-1;
+            int bufferScale = (scale_factor - 2 < 1) ? 1 : scale_factor-2;
             scale_factor = bufferScale;
             display_board = new String[8 * scale_factor][8 * scale_factor];
         } else {
-            scale_factor +=1;
+            scale_factor +=2;
             display_board = new String[8 * scale_factor][8 * scale_factor];
         }
     }
 
 
-    // The size of the board will always be an 8x8 wich is referred to as the base board 
-    // When refering to size of the board, what changes is the size of individual tiles, and it's called "display board"
-    // Both base board and display board are 2d arrays, with the latter being multiple a of the former times the scale factor
-
-    /* The base size of board is a 2x2, and every size is a multiple of 2, increasing both in
-    *  height and width. To render a row of the base board, the size of the display board is the base board multiplied by the
-    *  scale factor, then the string representing the tile is added to itself by the number of
-    *  the scale factor, and then, the result of this process is copied to the next rows equal to the scale factor.
-    *  
-    *  To display the pieces of the board, each pieces position is multiplied by the scale factor and then placed
-    *  into the display board 2d array.
-    * 
-    *  To finally print the board to the console, each row is concatenated into a single string and then printed one after
-    *  the other.
-    */
     public void placePieces() {
 
     }
 
-    public void printBoard() {
+    public void printBoard(Board playBoard) {
+        Tile[][] originalBoard = playBoard.playBoard;
+
+        for (int i = 0 ; i < originalBoard.length; i++){
+            for (int j = 0; j < originalBoard[i].length; j++){
+                Piece pieceName = originalBoard[i][j].currentPiece;
+                if (pieceName != null) {
+                    display_board[(7-i) * scale_factor + (scale_factor/2)][ j* scale_factor + (scale_factor/2)] = pieceName.getPieceName() + " ";
+                    // System.out.println(pieceName.getPieceName());
+                }
+            }
+        }
+
         boolean startBlack = false;
         int bufferScale = 0;
         int yPos = 8;
         for (int i = 0; i < display_board.length; i++){
             if (bufferScale == scale_factor /2) {
-                System.out.print(yPos + " ");
+                System.out.print(yPos + "| ");
             } else{ 
-                System.out.print("  ");
+                System.out.print(" | ");
             }
 
             int j = 0;
@@ -113,5 +113,29 @@ public class DisplayBoard {
             }
         }
 
+        StringBuilder letterPadding = new StringBuilder();
+
+        for (int i = 1; i < scale_factor; i++){
+            letterPadding.append("  ");
+        }
+
+
+        System.out.print("   ");
+
+        for (int i = 0; i < display_board[0].length; i++){
+            System.out.print("--");
+        }
+
+        System.out.println("");
+
+        for (int a = 0; a < scale_factor/2; a++){
+            System.out.print("  ");
+        }
+
+        System.out.print("   ");
+
+        System.out.print("A "+letterPadding+"B "+letterPadding+"C "+letterPadding+"D "+letterPadding+
+                             "E "+letterPadding+"F "+letterPadding+"G "+letterPadding+"H ");
+        System.out.println("\n");
     }
 }

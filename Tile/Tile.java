@@ -7,7 +7,6 @@ public class Tile {
     public boolean isAttackedWhite;
     public boolean isAttackedBlack;
     public Piece currentPiece;
-    // List<Piece> possibleMove;
     public ArrayList<Piece> possibleMoves;
 
     public Tile() {
@@ -15,6 +14,10 @@ public class Tile {
         isAttackedWhite = false;
         currentPiece = null;
         possibleMoves = new ArrayList<Piece>();
+    }
+
+    public void removePiece() {
+        this.currentPiece = null;
     }
     
 }

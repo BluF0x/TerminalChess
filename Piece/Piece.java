@@ -3,6 +3,7 @@ package Piece;
 import Board.Coordinate;
 
 // import Team.Team;
+import Board.Board;
 
 public abstract class Piece {
     private char piece_name;
@@ -15,9 +16,9 @@ public abstract class Piece {
        this.position = position;
     }
 
-    public Piece(Team team_color, Coordinate y, int x ){
+    public Piece(Team team_color, Coordinate x, int y ){
         this.team_color = team_color;
-        this.position = new int[]{ x -1, y.numberCoordinate};
+        this.position = new int[]{ y -1, x.numberCoordinate};
     }
 
     public void setPieceName(char name) {
@@ -40,12 +41,12 @@ public abstract class Piece {
         return this.team_color;
     }
 
-    public void calculateMovement(){
+    public void calculateMovement(Board board){
 
     }
 
-    public void MovePiece(int x, int y) {
-        this.position = new int[]{x, y};
+    public void MovePiece(int y, int x) {
+        this.position = new int[]{y, x};
         
     }
     

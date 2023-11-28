@@ -16,7 +16,7 @@ import Piece.Pawn;
 public class Main {
     public static void main(String... arg) throws IOException, InterruptedException {
 
-        DisplayBoard displayBoard = new DisplayBoard();
+        // DisplayBoard displayBoard = new DisplayBoard();
         Board playBoard = new Board();
 
         // Piece[] pieces = new Piece[]{
@@ -52,10 +52,13 @@ public class Main {
 
 
         Rook rook = new Rook(Team.WHITE, Coordinate.E, 4);
-        Queen queen = new Queen(Team.BLACK, Coordinate.H, 4);
+        // Queen queen = new Queen(Team.BLACK, Coordinate.H, 4);
+        // Queen queen2 = new Queen(Team.WHITE, Coordinate.E, 2);
+
         // Rook rook2 = new Rook(Team.WHITE, Coordinate.H, 1);
         playBoard.placePiece(rook);
-        playBoard.placePiece(queen);
+        // playBoard.placePiece(queen);
+        // playBoard.placePiece(queen2);
         // playBoard.placePiece(rook2);
 
 
@@ -69,7 +72,7 @@ public class Main {
 
             //Comando para limpar a tela
             // new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor(); 
-            rook.calculateMovement(playBoard);
+            playBoard.calculateMoves();
 
             System.out.println("==============================================");
             System.out.println("|| ██████ ╗██╗  ██╗███████╗███████╗███████╗ ||");
@@ -80,7 +83,9 @@ public class Main {
             System.out.println("|| ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝ ||");
             System.out.println("==============================================");
 
-            displayBoard.printBoard(playBoard);
+            // displayBoard.printBoard(playBoard);
+            playBoard.printBoard();
+
 
             System.out.print("Digite o seu comando: ");
 
@@ -92,41 +97,44 @@ public class Main {
                     break;
                 
                 case "su":
-                    displayBoard.setScaleFactor(false);
+                    playBoard.setScaleFactor(false);
                     break;
 
                 case "sd":
-                    displayBoard.setScaleFactor(true);
+                    playBoard.setScaleFactor(true);
                     break;
                 default:
-                    int yPos;
+                    int xPos;
                     char[] splitCommand = command.toCharArray();
                     switch(Character.toUpperCase(splitCommand[1])) {
                         case 'A':
-                            yPos = Coordinate.A.numberCoordinate;
+                            xPos = Coordinate.A.numberCoordinate;
                             break;
                         case 'B':
-                            yPos = Coordinate.B.numberCoordinate;
+                            xPos = Coordinate.B.numberCoordinate;
                             break;
                         case 'C':
-                            yPos = Coordinate.C.numberCoordinate;
+                            xPos = Coordinate.C.numberCoordinate;
                             break;
                         case 'D':
-                            yPos = Coordinate.D.numberCoordinate;
+                            xPos = Coordinate.D.numberCoordinate;
+                            break;
+                        case 'E':
+                            xPos = Coordinate.E.numberCoordinate;
                             break;
                         case 'F':
-                            yPos = Coordinate.F.numberCoordinate;
+                            xPos = Coordinate.F.numberCoordinate;
                             break;
                         case 'G':
-                            yPos = Coordinate.G.numberCoordinate;
+                            xPos = Coordinate.G.numberCoordinate;
                             break;
                         case 'H':
-                            yPos = Coordinate.H.numberCoordinate;
+                            xPos = Coordinate.H.numberCoordinate;
                             break;
                         default:
                             throw new IllegalArgumentException("Invalid input character: ");
                     }
-                    rook.MovePiece(Character.getNumericValue(splitCommand[2]-1), yPos);
+                    playBoard.movePiece(splitCommand[0], Character.getNumericValue(splitCommand[2]-1), xPos);
 
                     break;
                 }
